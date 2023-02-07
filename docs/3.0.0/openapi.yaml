@@ -10,8 +10,8 @@ servers:
   - url: http://localhost:8181
     description: local
 tags:
-  - name: Info - 1.0.0
-    description: General information of Orchestrator Service (inside root)
+  - name: Info - 3.0.0
+    description: General information of Orchestrator Service (inside docs/3.0.0)
 paths:
   /v3/version:
     get:
