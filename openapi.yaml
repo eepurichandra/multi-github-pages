@@ -2,7 +2,7 @@ openapi: "3.0.3"
 info:
   title: Orchestrator APIs
   description: REST API for Orchestrator
-  version: "v1"
+  version: "1.0.0"
   contact:
     name: Chandra
     email: epuru.chandra@gmail.com
@@ -10,8 +10,8 @@ servers:
   - url: http://localhost:8181
     description: local
 tags:
-  - name: Info - 1.0.0
-    description: General information of Orchestrator Service (inside root)
+  - name: Info
+    description: General information of Orchestrator Service
 paths:
   /v3/version:
     get:
