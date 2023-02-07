@@ -1,0 +1,125 @@
+openapi: "3.0.3"
+info:
+  title: Orchestrator APIs
+  description: REST API for Orchestrator
+  version: "v1"
+  contact:
+    name: Chandra
+    email: epuru.chandra@gmail.com
+servers:
+  - url: http://localhost:8181
+    description: local
+tags:
+  - name: Info
+    description: General information of Orchestrator Service
+paths:
+  /v3/version:
+    get:
+      operationId: GetVersion
+      tags:
+        - Info
+      summary: Get Version
+      description: Get Version of Orchestrator Service
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationError'
+        '500':
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /v3/spec:
+    get:
+      operationId: GetOpenAPISpec
+      tags:
+        - Info
+      summary: Get OpenAPI spec
+      description: Get OpensAPI spec of the deployed Orchestrator Service
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: OpensAPI Spec file
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationError'
+        '500':
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+components:
+  parameters:
+    Authorization:
+      name: Authorization
+      in: header
+      description: Authorization Token
+      schema:
+        type: string
+      required: true
+  schemas:
+    AuthenticationError:
+      type: object
+      properties:
+        httpStatusCode:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: Unable to read user authentication information.
+        debugId:
+          type: string
+          example: 1234-1234
+        errorCode:
+          type: string
+          example: UNAUTHORIZED
+    InternalError:
+      type: object
+      properties:
+        httpStatusCode:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: Internal Error
+        debugId:
+          type: string
+          example: 1234-1234
+        errorCode:
+          type: string
+          example: INTERNAL_ERROR
+        errorDetails:
+          type: object
+          example:
+            type: hpe.greenlake.retry_info
+            retryAfterSeconds: 30
+    Version:
+      type: object
+      description: Orchestrator Service Version
+      required:
+        - build
+        - version
+      properties:
+        build:
+          type: string
+          example: "010622192045"
+        version:
+          type: string
+          example: v1.0.0
