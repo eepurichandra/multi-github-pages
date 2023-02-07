@@ -41,6 +41,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalError'
+  /v4/version:
+    get:
+      operationId: GetV4Version
+      tags:
+        - Info
+      summary: Get Version
+      description: Get Version of V4 Orchestrator Service
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationError'
+        '500':
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
   /v3/spec:
     get:
       operationId: GetOpenAPISpec

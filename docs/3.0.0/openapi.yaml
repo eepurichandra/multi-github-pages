@@ -13,6 +13,34 @@ tags:
   - name: Info
     description: General information of Orchestrator Service
 paths:
+  /v3/status:
+    get:
+      operationId: GetStatus
+      tags:
+        - Info
+      summary: Get Status
+      description: Get Status of Orchestrator Service
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationError'
+        '500':
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
   /v3/version:
     get:
       operationId: GetVersion
@@ -123,3 +151,12 @@ components:
         version:
           type: string
           example: v1.0.0
+    Status:
+      type: object
+      description: RO NEM Service Status
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          example: OK
